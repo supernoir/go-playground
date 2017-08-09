@@ -14,15 +14,18 @@ func main() {
 		num3 *= 2
 		return num3
 	}
-	fmt.Println(doubleNum())
-	fmt.Println(doubleNum())
+	fmt.Println("Double Num: ", doubleNum())
+	fmt.Println("Double Num: ", doubleNum())
 
-	fmt.Println(factorial(3))
+	fmt.Println("Factorial: ", factorial(3))
 
 	// printHello2 called first,
 	// but deferred until main function finished
 	defer printHello2()
 	printHello1()
+
+	fmt.Println("Safe Division:", safeDivision(3, 0))
+	fmt.Println("Safe Division:", safeDivision(3, 2))
 }
 
 func addThemUp(numbers []float64) float64 {
@@ -51,3 +54,12 @@ func factorial(num int) int {
 
 func printHello1() { fmt.Println("大家好") }
 func printHello2() { fmt.Println("你們好") }
+
+func safeDivision(num1, num2 int) int {
+	defer func() {
+		fmt.Println(recover())
+	}()
+
+	solution := num1 / num2
+	return solution
+}
